@@ -58,6 +58,12 @@ module.exports = {
       type: "boolean",
       defaultsTo: false
     },
+    user_group_golf: {
+      type: "boolean"
+    },
+    user_group_hoa: {
+      type: "boolean"
+    },
   }
 };
 
