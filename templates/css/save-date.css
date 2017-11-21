@@ -1,0 +1,58 @@
+
+@import 'https://fonts.googleapis.com/css?family=Tangerine';
+@import 'https://fonts.googleapis.com/css?family=Rufina';
+
+.text-center {
+  text-align: center;
+}
+
+.default-sd-main-body {
+  position: relative;
+  padding: 5px;
+}
+
+.default-sd-border {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+}
+
+.default-sd-content {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 50px;
+}
+.default-sd-content h2 {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  line-height: 40px;
+  font-family: "Tangerine", cursive;
+  font-size: 60px;
+  color: #A2A2A2;
+}
+.default-sd-content h3 {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  line-height: 70px;
+  font-family: 'Rufina', serif;
+  font-size: 30px;
+  color: #A2A2A2;
+  text-transform: uppercase;
+}
+.default-sd-content p {
+  line-height: 30px;
+  font-family: 'Rufina', serif;
+  font-size: 16px;
+  color: #A2A2A2;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.default-sd-heading {
+  margin-top: 80px;
+  width: 70%;
+  margin-bottom: 20px;
+  height: auto;
+}

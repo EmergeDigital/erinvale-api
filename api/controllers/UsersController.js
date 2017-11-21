@@ -105,7 +105,7 @@ module.exports = {
         console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "");
 
         let original = {
-            id: request.body.user.id
+            email: request.body.user.email
         };
 
         let changes = request.body.changes;
@@ -244,7 +244,7 @@ module.exports = {
             checkPassword(password, result.password).then(password_match => {
                 if (password_match) {
                     //Check if password length is long enough
-                    if (!!new_password && new_password.length > 6) {
+                    if (!!new_password && new_password.length > 3) {
                         sails.models.users.update(_user, user).then(u => {
                             if (!!u) {
                                 response.status(200).json("Password Changed Successfully");
@@ -288,18 +288,18 @@ module.exports = {
                     }
                     console.log(hash);
 
-                    let link = "https://api.erinvale.co.za/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
-                    // let link = "http://localhost:1337/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
+                    // let link = "https://api.erinvale.co.za/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
+                    let link = "http://localhost:1337/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
                     // console.log( qs.escape(link));
 
                     let _options = {
                         name: user.first_name,
                         password_reset_link: link
                     };
+                    response.status(200).json("Password reset link has been sent, please check your emails.");
 
                     emailService.renderEmailAsync("passwordResetLink.html", _options).then((html, text) => {
                         emailService.createMail(html, text, _user.email, "Password Reset Requested - Erinvale").then(() => {
-                            response.status(200).json("Password reset link has been sent, please check your emails.");
                         });
                     });
                 });
@@ -342,10 +342,10 @@ module.exports = {
                                 name: user.first_name,
                                 temporary_password: password
                             };
+                            response.status(200).json("Password reset, please check your emails.");
 
                             emailService.renderEmailAsync("passwordReset.html", _options).then((html, text) => {
                                 emailService.createMail(html, text, _user.email, "Password Reset - Erinvale").then(() => {
-                                    response.status(200).json("Password reset, please check your emails.");
                                 });
                             });
 

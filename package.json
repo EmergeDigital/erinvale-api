@@ -22,12 +22,15 @@
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
     "lodash": "^4.17.4",
+    "mailcomposer": "^4.0.2",
+    "mailgun-js": "^0.13.1",
     "rc": "1.0.1",
     "rekuire": "^0.1.9",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
     "sails-mongo": "^0.12.2",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "swig-email-templates": "^5.0.1"
   },
   "scripts": {
     "debug": "node debug app.js",

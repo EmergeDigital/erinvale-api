@@ -62,6 +62,9 @@ module.exports = {
     country: {
       type: "string"
     },
+    image_url: {
+      type: "string"
+    },
     permissions: {
       type: "string",
       defaultsTo: "user"

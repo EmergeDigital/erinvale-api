@@ -42,10 +42,10 @@ module.exports.routes = {
   'post /v1/users/update' : 'UsersController.updateUser',
   'post /v1/users/delete' : 'UsersController.deleteUser',
   'get /v1/users/get_all' : 'UsersController.getUsers',
-  // 'post /v1/users/change_email' : 'UsersController.changeEmail',
-  // 'post /v1/users/change_password' : 'UsersController.changePassword',
-  // 'get /v1/users/reset_password_link' : 'UsersController.resetPasswordLink',
-  // 'get /v1/users/reset_password' : 'UsersController.resetPassword',
+  'post /v1/users/change_email' : 'UsersController.changeEmail',
+  'post /v1/users/change_password' : 'UsersController.changePassword',
+  'get /v1/users/reset_password_link' : 'UsersController.resetPasswordLink',
+  'get /v1/users/reset_password' : 'UsersController.resetPassword',
 
   /***************************************************************************
   *                                                                          *
