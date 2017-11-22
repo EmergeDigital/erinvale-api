@@ -33,10 +33,8 @@ module.exports = {
             console.log("Logging success: ", success);
             response.json(success);
         }).catch(ex => {
-            response.statusCode = 400;
-            response.status = 400;
-            console.log("create user: error: ", ex);
-            response.json(ex);
+            console.log("create user: error: ", find_error(ex));
+            response.status(400).json(find_error(ex));
         })
     },
 
@@ -63,6 +61,30 @@ module.exports = {
                 response.status(400).json("There was a problem logging in");
             }
         });
+    },
+
+    //Gets a single user
+
+    getUser: (request, response) => {
+        console.log("\nReceived GET for SINGLE USER");
+        console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "");
+
+        console.log("get user: ", request.query);
+
+        if(!!request.query) {
+            sails.models.users.findOne(request.query).then(result => {
+                if (!!result) {
+                    response.status(200).json(result);
+                } else {
+                    response.status(400).json("Unable to find user");
+                }
+            }).catch(ex => {
+                console.log(ex);
+                response.status(400).json(ex);
+            });
+        } else {
+            response.status(400).json("Please send a query string");
+        }
     },
 
     /**
@@ -118,7 +140,7 @@ module.exports = {
         }).catch(ex => {
             console.log(ex);
             response.statusCode = 400;
-            response.json(ex)
+            response.json(find_error(ex));
         })
     },
 
@@ -155,7 +177,9 @@ module.exports = {
         console.log("Received GET for ALL USERS");
         console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
         // let users = get();
+        // console.log(request.query);
         sails.models.users.find(request.query).then(users => {
+            // console.log(users);
             response.statusCode = 200;
             response.json(users);
         }).catch(ex => {
@@ -370,6 +394,7 @@ function find_error(ex) {
             .includes("already exists")) {
         return "That email address has already been registered!"
     } else {
+        return ex;
         // console.log(ex.toString().toLowerCase());
     }
 }

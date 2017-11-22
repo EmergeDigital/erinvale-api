@@ -37,7 +37,7 @@ module.exports.routes = {
   },
   //USERS
   'post /v1/users/create' : 'UsersController.createUser',
-  // 'get /v1/users/get' : 'UsersController.getUser',
+  'get /v1/users/get' : 'UsersController.getUser',
   'get /v1/users/login' : 'UsersController.loginUser',
   'post /v1/users/update' : 'UsersController.updateUser',
   'post /v1/users/delete' : 'UsersController.deleteUser',
