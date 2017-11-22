@@ -35,6 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  
   //USERS
   'post /v1/users/create' : 'UsersController.createUser',
   'get /v1/users/get' : 'UsersController.getUser',
@@ -46,6 +47,13 @@ module.exports.routes = {
   'post /v1/users/change_password' : 'UsersController.changePassword',
   'get /v1/users/reset_password_link' : 'UsersController.resetPasswordLink',
   'get /v1/users/reset_password' : 'UsersController.resetPassword',
+
+  //POSTS
+  'post /v1/posts/create' : 'PostsController.createPost',
+  'get /v1/posts/get' : 'PostsController.getPost',
+  'post /v1/posts/update' : 'PostsController.updatePost',
+  'post /v1/posts/delete' : 'PostsController.deletePost',
+  'get /v1/posts/get_all' : 'PostsController.getPosts',
 
   /***************************************************************************
   *                                                                          *

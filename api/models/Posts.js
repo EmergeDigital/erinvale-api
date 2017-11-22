@@ -17,6 +17,9 @@ module.exports = {
       unique: true
     },
     created_by: {
+      type: "string"
+    },
+    created_by_id: {
       type: "string",
       required: true,
     },
@@ -25,10 +28,12 @@ module.exports = {
       defaultsTo: false
     },
     title: {
-      type: "string"
+      type: "string",
+      required: true,
     },
     subtitle: {
-      type: "string"
+      type: "string",
+      required: true,
     },
     image_url: {
       type: "string"
