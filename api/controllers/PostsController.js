@@ -163,5 +163,33 @@ module.exports = {
         });
     },
 
+    /**
+     * Get all posts and events in an array & sort by date
+     * @param request
+     * @param response
+     */
+    getNews: (request, response) => {
+        console.log("Received GET for ALL News and Events");
+        console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
+        
+        sails.models.posts.find(request.query).then(posts => {
+            return sails.models.events.find(request.query).then(events => {
+                let post_events = posts.concat(events);
+
+                post_events.sort(function(a, b) {
+                    a = new Date(a.createdAt);
+                    b = new Date(b.createdAt);
+                    return a>b ? -1 : a<b ? 1 : 0;
+                });
+                
+                return response.status(200).json(post_events);
+            })
+        }).catch(ex => {
+            console.log(ex);
+            response.status(400).json(ex);
+        });
+    },
+
+
 };
 

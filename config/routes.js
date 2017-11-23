@@ -54,6 +54,7 @@ module.exports.routes = {
   'post /v1/posts/update' : 'PostsController.updatePost',
   'post /v1/posts/delete' : 'PostsController.deletePost',
   'get /v1/posts/get_all' : 'PostsController.getPosts',
+  'get /v1/posts/get_news' : 'PostsController.getNews',
 
   //EVENTS
   'post /v1/events/create' : 'EventsController.createEvent',
