@@ -79,32 +79,9 @@ html, body {
 	position: relative;
 }
 
-.bloom-anchor {
-	color: #DFBFC0 !important;
-
-}
-
-.hr-pink {
-	background: #FBD3DB;
-	height: 2px;
-	width: 70%;
-}
-
-.pink-strip {
-	background-color: #FBD3DB;
-	color: #796F70;
-	text-align: center;
-	padding: 10px;
-	font-size: 12px;
-}
-
-.pink-strip a{
-	color: #796F70 !important;
-	text-decoration: none !important;
-}
 
 .grey-footer {
-  background-color: #232323;
+  background-color: #cfcc00;
   padding: 30px 15px 40px 15px;
   color: #FAFAFA;
   text-align: center;
@@ -114,72 +91,37 @@ html, body {
 	color: #796F70 !important;
 }
 
-.button-pink {
-	height: 40px;
-	width: 100px;
-	background-color: #fbd3db;
-	color: white;
+.gold-footer {
+  background-color: #958051;
+  padding: 30px 15px 40px 15px;
+  color: #FAFAFA;
+  text-align: center;
 }
 
-.invite-background {
-	background: url('http://i.imgur.com/tDuzhqY.jpg');
-	background-size: auto 100%;
-	background-position: 0% 0% ;
+.gold-footer a {
+	color: rgb(255, 255, 255) !important;
 }
 
-.circle {
-    background: #fbd3db;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    position: relative;
-    margin: 0 auto;
+.green-footer {
+  background-color: #51955c;
+  padding: 30px 15px 40px 15px;
+  color: #FAFAFA;
+  text-align: center;
 }
 
-.circle:hover {
-	cursor: pointer;
-	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-	transition: 0.8s;
-	background: #ffb5c3;
-
+.green-footer a {
+	color: rgb(255, 255, 255) !important;
 }
 
-.circle-number {
-    line-height: 150px;
-    text-align: center;
-    font-size: 48px;
-}
+
 
 a {
-	color: #808080 !important;
+	color: #000000 !important;
 	text-decoration: none !important;
 }
 
 .c-padding {
 	margin-bottom: 30px;
-}
-
-.circle-text-after {
-	padding: 15px;
-	font-size: 18px;
-}
-
-.floating-pic {
-	position: absolute;
-	top: 5px;
-	right: 20px;
-}
-
-.profile-pic {
-  overflow:hidden;
-  left: 10px;
-  height:150px;
-  width:150px;
-  -webkit-border-radius: 50%;
-     -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-          border-radius: 50%;
-
 }
 
 .scanplan-icon{
@@ -192,24 +134,6 @@ a {
   border-radius: 50%;
   image-rendering: -webkit-optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor;
-}
-
-.profile-pic-outer {
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #fff;
-  padding: 10px 10px 10px 10px;
-  height: 170px;
-  width: 170px;
-  -webkit-border-radius: 50%;
-     -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-          border-radius: 50%;
-
-  -webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
-     -moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
-      -ms-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
-          box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
 }
 
 blockquote {
@@ -272,6 +196,16 @@ p {
   color: white;
 }
 
+.gold {
+  background-color: #958051 !important;
+  border: 3px solid #958051;
+}
+
+.green {
+  background-color: #51955c !important;
+  border: 3px solid #51955c;
+}
+
 .default-decline-btn{
     padding:0px;
     color: #F8BBD0;;
@@ -290,19 +224,6 @@ p {
         -ms-border-radius: 3px;
             border-radius: 3px;
 	background-color: white;
-}
-
-
-.default-decline-btn:active:hover{
-  background-color:white;
-  border: 3px solid #F8BBD0;
-  color: #F8BBD0;
-}
-
-.default-decline-btn:active:focus{
-  background-color:white;
-  border: 3px solid #F8BBD0;
-  color: #F8BBD0;
 }
 
 .default-main-body {

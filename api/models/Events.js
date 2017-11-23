@@ -26,6 +26,10 @@ module.exports = {
       type: "string",
       required: true,
     },
+    created_by_id: {
+      type: "string",
+      required: true,
+    },
     repeating: {
       type: "boolean",
       defaultsTo: false
