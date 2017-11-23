@@ -5,9 +5,10 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-let shortid = require('shortid');
-let moment = require('moment');
+var shortid = require('shortid');
+var moment = require('moment');
 var jsdom = require("jsdom");
+var striptags = require('striptags');
 const { JSDOM } = jsdom;
 
 module.exports = {
@@ -34,6 +35,7 @@ module.exports = {
         }
 
         post.image_url = img;
+        post.text = striptags(post.html);
 
         console.log(post);
 
@@ -90,17 +92,21 @@ module.exports = {
 
         let changes = request.body.changes;
         changes.edited = "Edited " + moment().format('MMMM Do YYYY, h:mm a');
-        const dom = new JSDOM(changes.html);
-        let img = '../assets/img/placeholder-image.jpg';
-        let imgs = dom.window.document.getElementsByTagName('img');
-        for (let i = 0; i < imgs.length; i++) {
-            let src = imgs[i].getAttribute('src');
-            if (src) {
-                img = src;
-                break;
+        if(changes.html) {
+            const dom = new JSDOM(changes.html);
+            let img = '../assets/img/placeholder-image.jpg';
+            let imgs = dom.window.document.getElementsByTagName('img');
+            for (let i = 0; i < imgs.length; i++) {
+                let src = imgs[i].getAttribute('src');
+                if (src) {
+                    img = src;
+                    break;
+                }
             }
+            changes.image_url = img;
+            changes.text = striptags(changes.html);
+
         }
-        changes.image_url = img;
         console.log(JSON.stringify(changes));
 
 

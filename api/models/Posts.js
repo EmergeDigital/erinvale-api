@@ -23,10 +23,6 @@ module.exports = {
       type: "string",
       required: true,
     },
-    repeating: {
-      type: "boolean",
-      defaultsTo: false
-    },
     title: {
       type: "string",
       required: true,
@@ -39,9 +35,6 @@ module.exports = {
       type: "string"
     },
     text: {
-      type: "string"
-    },
-    markdown: {
       type: "string"
     },
     html: {
