@@ -81,14 +81,25 @@ html, body {
 
 
 .grey-footer {
-  background-color: #cfcc00;
+  background-color: #000;
   padding: 30px 15px 40px 15px;
   color: #FAFAFA;
   text-align: center;
 }
 
 .grey-footer a {
-	color: #796F70 !important;
+	color: rgb(255, 255, 255) !important;
+}
+
+.blue-footer {
+  background-color: #3CB5FE;
+  padding: 30px 15px 40px 15px;
+  color: #FAFAFA;
+  text-align: center;
+}
+
+.blue-footer a {
+	color: rgb(255, 255, 255) !important;
 }
 
 .gold-footer {

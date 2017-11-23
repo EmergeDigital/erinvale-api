@@ -63,9 +63,9 @@ module.exports = {
         if(!!request.query.id) {
             sails.models.events.findOne({id: request.query.id}).then(result => {
                 if (!!result) {
-                    response.status(200).json(result);
+                    return response.status(200).json(result);
                 } else {
-                    response.status(400).json("Unable to find event");
+                    return response.status(400).json("Unable to find event");
                 }
             }).catch(ex => {
                 console.log(ex);
@@ -160,6 +160,60 @@ module.exports = {
             console.log(ex);
             response.status(400).json(ex);
         });
+    },
+
+    /**
+     * Updates an existing event with user attendance
+     * @param request
+     * @param response
+     */
+    updateAttendance: (request, response) => {
+        console.log("\nReceived POST for UPDATE Event Attendance");
+        console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "");
+
+        let original = {
+            id: request.body.event.id
+        };
+
+        let userid = request.body.user.id;
+        let attendance = request.body.user.attendance; //boolean saying whether to remove or add
+
+        sails.models.events.findOne(original).then(event => {
+            let new_array = event.attending || [];
+            var index = new_array.indexOf(userid);
+            if (index !== -1 && !attendance) { //If found and removing attendance (false)
+                new_array.splice(index, 1); //Remove index
+                //update
+                event.attending = new_array;
+                return sails.models.events.update(original, event).then(result => {
+                    if(result.length > 0) {
+                        return response.status(200).json(result[0]);
+                    } else {
+                        return result.status(400).json("Unable to update");
+                    }
+                }).catch(ex => {
+                    console.log(ex);
+                    return response.status(400).json(ex);
+                })
+            } else if (index == -1 && attendance) { //If not found and adding attendance (true)
+                new_array.push(userid); //push userid to array
+                //update
+                event.attending = new_array;
+                return sails.models.events.update(original, event).then(result => {
+                    if(result.length > 0) {
+                        return response.status(200).json(result[0]);
+                    } else {
+                        return result.status(400).json("Unable to update");
+                    }
+                }).catch(ex => {
+                    console.log(ex);
+                    return response.status(400).json(ex);
+                });
+            } else {
+                response.status(200).json(event); //Return current event, it is correct as-is
+            }
+        })
+
     },
 };
 

@@ -31,6 +31,7 @@ module.exports = {
 
         sails.models.users.create(user).then(success => {
             console.log("Logging success: ", success);
+            welcomeUser(success, user.password);
             response.json(success);
         }).catch(ex => {
             console.log("create user: error: ", find_error(ex));
@@ -438,4 +439,39 @@ function checkLogin(email, password, response) {
         })
 
     })
+}
+
+function welcomeUser(user, password) {
+    return new Promise((resolve, reject) => {
+        console.log("PASSWORD: " + password);
+        console.log("User account created, sending email");
+        let to = user.email;
+        let user_type = processAccountType(user);
+        
+        let subject = "Welcome to Erinvale - " + user_type + " Members";
+        let _options = {
+            name: user.first_name,
+            temporary_password: password,
+            email: user.email
+        };
+
+        //SEND EMAIL BELOW WITH PASSWORD
+        emailService.renderEmailAsync("user" + user_type + "Welcome.html", _options).then((html, text) => {
+            emailService.createMail(html, text, to, subject).then(() => {
+                resolve(true);
+                console.log("Done with this user (" + user.email + ")");
+            });
+        });
+    })
+}
+
+function processAccountType(user) {
+  if(user.permissions === "admin") {
+    return "Admin";
+  } else {      
+    if(user.user_group_hoa) {
+      return "HOA";
+    }
+    return "Golf";
+  }
 }
