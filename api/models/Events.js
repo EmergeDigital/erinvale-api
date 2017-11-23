@@ -33,13 +33,16 @@ module.exports = {
     interval: {
       type: "string"
     },
-    details: {
-      type: "string"
-    },
     title: {
       type: "string"
     },
     subtitle: {
+      type: "string"
+    },
+    text: {
+      type: "string"
+    },
+    html: {
       type: "string"
     },
     attending: {
@@ -54,10 +57,10 @@ module.exports = {
     location_name: {
       type: "string"
     },
-    published: {
-      type: "boolean",
-      defaultsTo: false
-    },
+    // published: {
+    //   type: "boolean",
+    //   defaultsTo: false
+    // },
     user_group_golf: {
       type: "boolean"
     },

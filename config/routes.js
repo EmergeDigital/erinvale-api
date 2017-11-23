@@ -55,6 +55,13 @@ module.exports.routes = {
   'post /v1/posts/delete' : 'PostsController.deletePost',
   'get /v1/posts/get_all' : 'PostsController.getPosts',
 
+  //EVENTS
+  'post /v1/events/create' : 'EventsController.createEvent',
+  'get /v1/events/get' : 'EventsController.getEvent',
+  'post /v1/events/update' : 'EventsController.updateEvent',
+  'post /v1/events/delete' : 'EventsController.deleteEvent',
+  'get /v1/events/get_all' : 'EventsController.getEvents',
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
