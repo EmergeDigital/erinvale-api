@@ -8,6 +8,7 @@
 // Imports
 let bcrypt = require('bcrypt');
 let shortid = require('shortid');
+let moment = require('moment');
 let generator = require('generate-password');
 let qs = require('querystring');
 let _ = require('lodash');
@@ -188,6 +189,57 @@ module.exports = {
             response.status(400).json(ex);
         });
     },
+    
+    /**
+    * Get all user dashboarrd data
+    * @param request
+    * @param response
+    */
+    getDashboardContent: (request, response) => {
+        console.log("Received GET for ALL USERS");
+        console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
+       
+        //This assumes just a regular user, admin user will return more data
+        let events, posts, user;
+        let params = {};
+
+        sails.models.users.findOne(request.query).then(_user => {
+            user = _user;
+            params = processUserGroup(user);
+            console.log(params);
+            return sails.models.posts.find(params);
+        }).then(_posts => {
+            posts = _posts;
+            return sails.models.events.find(params);            
+        }).then(_events => {
+            events = _events;
+            console.log(posts);
+            //New events (1 week old)
+            let last7DayStart = moment().startOf('day').subtract(1,'week');
+            let today =  moment();
+            let new_events = _.filter(events, each => { 
+                   return moment(each.createdAt)
+                     .isBetween(last7DayStart, today);
+            });
+
+            //Events the user is attending (filter out dates past later);
+            let my_events = _.filter(events, each => { 
+                let _attending = each.attending || [];
+                return _attending.includes(user.id);
+            });
+
+            let data = {
+                posts,
+                events,
+                new_events,
+                my_events
+            };
+            response.status(200).json(data);
+        }).catch(ex => {
+            console.log(ex);
+           response.status(400).json(ex);
+       });
+   },
 
 
     /**
@@ -474,4 +526,21 @@ function processAccountType(user) {
     }
     return "Golf";
   }
+}
+
+function processUserGroup(user) {
+    let params = {};
+    if(user.permissions === "admin") {
+        return params;
+    } else {
+        if(user.user_group_hoa) {
+           params.user_group_hoa = true;
+        } else if (user.user_group_golf) {
+           params.user_group_golf = true;
+        } else {
+            params.user_group_hoa = false;
+            params.user_group_golf = false;
+        }
+        return params;
+    }
 }
