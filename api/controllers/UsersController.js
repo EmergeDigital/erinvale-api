@@ -196,7 +196,7 @@ module.exports = {
     * @param response
     */
     getDashboardContent: (request, response) => {
-        console.log("Received GET for ALL USERS");
+        console.log("Received GET for USER DASHBOARD");
         console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
        
         //This assumes just a regular user, admin user will return more data
@@ -210,10 +210,17 @@ module.exports = {
             return sails.models.posts.find(params);
         }).then(_posts => {
             posts = _posts;
+            //---Latest posts---
+            posts.sort(function(a, b) {
+                a = new Date(a.createdAt);
+                b = new Date(b.createdAt);
+                return a>b ? -1 : a<b ? 1 : 0;
+            });
+            posts = posts.slice(0, 5);
             return sails.models.events.find(params);            
         }).then(_events => {
             events = _events;
-            console.log(posts);
+            // console.log(posts);
             //New events (1 week old)
             let last7DayStart = moment().startOf('day').subtract(1,'week');
             let today =  moment();
@@ -227,6 +234,24 @@ module.exports = {
                 let _attending = each.attending || [];
                 return _attending.includes(user.id);
             });
+
+            //---Upcoming Events---
+
+            //Filter within the next month based on start date (start of today -> 1 month)
+            let nextMonthStart = moment().startOf('day').add(1,'month');
+            let todayStart = moment().startOf('day');
+            let upcoming_events = _.filter(events, each => { 
+                return moment(each.date_start)
+                    .isBetween(todayStart, nextMonthStart);
+            });
+
+            //Sort by date_start (high -> low) and then reverse array (low -> high)
+            upcoming_events.sort(function(a, b) {
+                a = new Date(a.date_start);
+                b = new Date(b.date_start);
+                return a>b ? -1 : a<b ? 1 : 0;
+            });
+            events = upcoming_events.reverse().slice(0, 5);
 
             let data = {
                 posts,
