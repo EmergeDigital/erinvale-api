@@ -253,13 +253,80 @@ module.exports = {
             });
             events = upcoming_events.reverse().slice(0, 5);
 
-            let data = {
-                posts,
-                events,
-                new_events,
-                my_events
-            };
-            response.status(200).json(data);
+            if(params = {}){ //Get user data for admin user                
+                return sails.models.users.find().then((users)=>{ //Get user data for admin user
+                    //---Latest users---
+                    users.sort(function(a, b) {
+                        a = new Date(a.createdAt);
+                        b = new Date(b.createdAt);
+                        return a>b ? -1 : a<b ? 1 : 0;
+                    });
+
+                    console.log(users);
+                    
+                    let user_counts = {
+                        admin: 0,
+                        golf: 0,
+                        hoa: 0
+                    };
+        
+                    for (let u of users) {
+                        switch (processAccountType(u)){
+                            case "Admin":
+                                user_counts.admin++;
+                                break;
+        
+                            case "HOA":
+                                user_counts.hoa++;
+                                break;
+        
+                            case "Golf":
+                                user_counts.golf++;
+                                break;
+                        }
+                    }
+        
+                    //New users (1 week old)
+                    let last7DayStart = moment().startOf('day').subtract(6,'days');
+                    let todayStart = moment().endOf('day');
+                    users = _.filter(users, each => { 
+                        return moment(each.createdAt)
+                            .isBetween(last7DayStart, todayStart);
+                    });
+
+                    console.log(users);
+        
+                    //Separate into weekdays
+                    let new_users = {};
+                    for(let x = 0; x < 7; x++){
+                        let wd = moment().subtract(x, 'days').format('dddd');
+                        new_users[wd] = 0;
+                    }
+                    for(let u of users){
+                        let weekDay = moment(u.createdAt).format('dddd');
+                        new_users[weekDay]++;
+                    }
+        
+                    let data = {
+                        posts,
+                        events,
+                        new_users,
+                        user_counts,
+                        new_events,
+                        my_events
+                    };
+                    response.status(200).json(data);
+                });
+            } else { //Is a user, data is complete
+                let data = {
+                    posts,
+                    events,
+                    new_events,
+                    my_events
+                };
+                response.status(200).json(data);
+            }
+
         }).catch(ex => {
             console.log(ex);
            response.status(400).json(ex);
