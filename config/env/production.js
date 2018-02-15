@@ -13,8 +13,8 @@
 module.exports = {
 
   ssl: {
-    key: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/certificates/privkey.pem'),
-    cert: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/certificates/fullchain.pem'),
+    key: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/privkey.pem'),
+    cert: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/fullchain.pem'),
     // ca: require('fs').readFileSync('/etc/letsencrypt/live/api.scanplan.co.za/chain.pem')
   },
 
