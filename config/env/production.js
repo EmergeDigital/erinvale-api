@@ -12,17 +12,17 @@
 
 module.exports = {
 
-  ssl: {
-    key: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/privkey.pem'),
-    cert: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/fullchain.pem'),
-    // ca: require('fs').readFileSync('/etc/letsencrypt/live/api.scanplan.co.za/chain.pem')
-  },
+  // ssl: {
+  //   key: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/privkey.pem'),
+  //   cert: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/fullchain.pem'),
+  //   // ca: require('fs').readFileSync('/etc/letsencrypt/live/api.scanplan.co.za/chain.pem')
+  // },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: 443,
+  port: 8443,
 
   host: 'localhost'
 };
