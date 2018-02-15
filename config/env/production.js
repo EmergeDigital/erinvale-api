@@ -12,27 +12,17 @@
 
 module.exports = {
 
-  /***************************************************************************
-   * Set the default database connection for models in the production        *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
-
-  // models: {
-  //   connection: 'someMysqlServer'
-  // },
+  ssl: {
+    key: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/privkey.pem'),
+    cert: require('fs').readFileSync('/etc/letsencrypt/live/erinvale.emergenow.co.za/fullchain.pem'),
+    // ca: require('fs').readFileSync('/etc/letsencrypt/live/api.scanplan.co.za/chain.pem')
+  },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  // port: 80,
+  port: 443,
 
-  /***************************************************************************
-   * Set the log level in production environment to "silent"                 *
-   ***************************************************************************/
-
-  // log: {
-  //   level: "silent"
-  // }
-
+  host: '::'
 };
