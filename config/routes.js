@@ -35,7 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  
+
   //USERS
   'post /v1/users/create' : 'UsersController.createUser',
   'get /v1/users/get' : 'UsersController.getUser',
@@ -64,7 +64,11 @@ module.exports.routes = {
   'post /v1/events/delete' : 'EventsController.deleteEvent',
   'get /v1/events/get_all' : 'EventsController.getEvents',
   'post /v1/events/attend' : 'EventsController.updateAttendance',
-  
+
+  //FUNCTIONS
+  'get /v1/functions/sign' : 'FunctionsController.sign',
+  'get /v1/functions/signAll' : 'FunctionsController.signAll'
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

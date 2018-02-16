@@ -250,6 +250,14 @@ array-find-index@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/array-find-index/-/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
 
+array-parallel@~0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/array-parallel/-/array-parallel-0.1.3.tgz#8f785308926ed5aa478c47e64d1b334b6c0c947d"
+
+array-series@~0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/array-series/-/array-series-0.1.5.tgz#df5d37bfc5c2ef0755e2aa4f92feae7d4b5a972f"
+
 arraybuffer.slice@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/arraybuffer.slice/-/arraybuffer.slice-0.0.6.tgz#f33b2159f0532a3f3107a272c0ccfbd1ad2979ca"
@@ -311,6 +319,10 @@ asynckit@^0.4.0:
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
+
+aws-signature-v4@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/aws-signature-v4/-/aws-signature-v4-1.2.1.tgz#5c910c28d304af14511a599d1f8df17c433b3b55"
 
 aws4@^1.6.0:
   version "1.6.0"
@@ -468,6 +480,13 @@ builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
 
+busboy@^0.2.14:
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/busboy/-/busboy-0.2.14.tgz#6c2a622efcf47c57bbbe1e2a9c37ad36c7925453"
+  dependencies:
+    dicer "0.2.5"
+    readable-stream "1.1.x"
+
 bytes@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.1.0.tgz#ac93c410e2ffc9cc7cf4b464b38289067f5e47b4"
@@ -562,6 +581,10 @@ chalk@~1.0.0:
     has-ansi "^1.0.3"
     strip-ansi "^2.0.1"
     supports-color "^1.3.0"
+
+"charenc@>= 0.0.1":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
 
 cheerio@^0.22.0:
   version "0.22.0"
@@ -807,6 +830,13 @@ cross-spawn-async@^2.1.6:
     lru-cache "^4.0.0"
     which "^1.2.8"
 
+cross-spawn@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-4.0.2.tgz#7b9247621c23adfdd3856004a823cbe397424d41"
+  dependencies:
+    lru-cache "^4.0.1"
+    which "^1.2.9"
+
 cross-spawn@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -815,11 +845,19 @@ cross-spawn@^5.0.1:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+"crypt@>= 0.0.1":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
+
 cryptiles@3.x.x:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-3.1.2.tgz#a89fbb220f5ce25ec56e8c4aa8a4fd7b5b0d29fe"
   dependencies:
     boom "5.x.x"
+
+crypto-js@^3.1.9-1:
+  version "3.1.9-1"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
 
 csextends@^1.0.3:
   version "1.1.1"
@@ -911,7 +949,7 @@ dateformat@~1.0.12:
     get-stdin "^4.0.1"
     meow "^3.3.0"
 
-debug@*, debug@3.1.0:
+debug@*, debug@3.1.0, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -1007,6 +1045,13 @@ destroy@1.0.3:
 destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
+
+dicer@0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/dicer/-/dicer-0.2.5.tgz#5996c086bb33218c812c090bddc09cd12facb70f"
+  dependencies:
+    readable-stream "1.1.x"
+    streamsearch "0.1.2"
 
 dom-serializer@0, dom-serializer@~0.1.0:
   version "0.1.0"
@@ -1555,6 +1600,15 @@ globule@^1.0.0:
     glob "~7.1.1"
     lodash "~4.17.4"
     minimatch "~3.0.2"
+
+gm@^1.23.1:
+  version "1.23.1"
+  resolved "https://registry.yarnpkg.com/gm/-/gm-1.23.1.tgz#2edeeb958084d0f8ea7988e5d995b1c7dfc14777"
+  dependencies:
+    array-parallel "~0.1.3"
+    array-series "~0.1.5"
+    cross-spawn "^4.0.0"
+    debug "^3.1.0"
 
 graceful-fs@*, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
@@ -2429,6 +2483,10 @@ merge-defaults@~0.1.0:
 merge-descriptors@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.0.tgz#2169cf7538e1b0cc87fb88e1502d8474bbf79864"
+
+merge@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
 messageformat@^0.3.1:
   version "0.3.1"
@@ -3681,6 +3739,13 @@ setprototypeof@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.0.3.tgz#66567e37043eeb4f04d91bd658c0cbefb55b8e04"
 
+sha1@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/sha1/-/sha1-1.1.1.tgz#addaa7a93168f393f19eb2b15091618e2700f848"
+  dependencies:
+    charenc ">= 0.0.1"
+    crypt ">= 0.0.1"
+
 shebang-command@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
@@ -3870,6 +3935,10 @@ stream-counter@~0.2.0:
   resolved "https://registry.yarnpkg.com/stream-counter/-/stream-counter-0.2.0.tgz#ded266556319c8b0e222812b9cf3b26fa7d947de"
   dependencies:
     readable-stream "~1.1.8"
+
+streamsearch@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
 
 string-width@^1.0.0, string-width@^1.0.1, string-width@^1.0.2:
   version "1.0.2"
