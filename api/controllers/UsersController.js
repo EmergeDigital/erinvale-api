@@ -626,7 +626,10 @@ function processUserGroup(user) {
         return params;
     } else {
         if(user.user_group_hoa) {
-           params.user_group_hoa = true;
+          if (user.user_group_golf) {
+            params.user_group_golf = true;
+          }
+          params.user_group_hoa = true;
         } else if (user.user_group_golf) {
            params.user_group_golf = true;
         } else {
