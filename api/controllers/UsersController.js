@@ -189,7 +189,7 @@ module.exports = {
             response.status(400).json(ex);
         });
     },
-    
+
     /**
     * Get all user dashboarrd data
     * @param request
@@ -198,7 +198,7 @@ module.exports = {
     getDashboardContent: (request, response) => {
         console.log("Received GET for USER DASHBOARD");
         console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
-       
+
         //This assumes just a regular user, admin user will return more data
         let events, posts, user;
         let params = {};
@@ -217,20 +217,20 @@ module.exports = {
                 return a>b ? -1 : a<b ? 1 : 0;
             });
             posts = posts.slice(0, 5);
-            return sails.models.events.find(params);            
+            return sails.models.events.find(params);
         }).then(_events => {
             events = _events;
             // console.log(posts);
             //New events (1 week old)
             let last7DayStart = moment().startOf('day').subtract(1,'week');
             let today =  moment();
-            let new_events = _.filter(events, each => { 
+            let new_events = _.filter(events, each => {
                    return moment(each.createdAt)
                      .isBetween(last7DayStart, today);
             });
 
             //Events the user is attending (filter out dates past later);
-            let my_events = _.filter(events, each => { 
+            let my_events = _.filter(events, each => {
                 let _attending = each.attending || [];
                 return _attending.includes(user.id);
             });
@@ -240,7 +240,7 @@ module.exports = {
             //Filter within the next month based on start date (start of today -> 1 month)
             let nextMonthStart = moment().startOf('day').add(1,'month');
             let todayStart = moment().startOf('day');
-            let upcoming_events = _.filter(events, each => { 
+            let upcoming_events = _.filter(events, each => {
                 return moment(each.date_start)
                     .isBetween(todayStart, nextMonthStart);
             });
@@ -253,7 +253,7 @@ module.exports = {
             });
             events = upcoming_events.reverse().slice(0, 5);
 
-            if(params = {}){ //Get user data for admin user                
+            if(params = {}){ //Get user data for admin user
                 return sails.models.users.find().then((users)=>{ //Get user data for admin user
                     //---Latest users---
                     users.sort(function(a, b) {
@@ -263,39 +263,39 @@ module.exports = {
                     });
 
                     console.log(users);
-                    
+
                     let user_counts = {
                         admin: 0,
                         golf: 0,
                         hoa: 0
                     };
-        
+
                     for (let u of users) {
                         switch (processAccountType(u)){
                             case "Admin":
                                 user_counts.admin++;
                                 break;
-        
+
                             case "HOA":
                                 user_counts.hoa++;
                                 break;
-        
+
                             case "Golf":
                                 user_counts.golf++;
                                 break;
                         }
                     }
-        
+
                     //New users (1 week old)
                     let last7DayStart = moment().startOf('day').subtract(6,'days');
                     let todayStart = moment().endOf('day');
-                    users = _.filter(users, each => { 
+                    users = _.filter(users, each => {
                         return moment(each.createdAt)
                             .isBetween(last7DayStart, todayStart);
                     });
 
                     console.log(users);
-        
+
                     //Separate into weekdays
                     let new_users = {};
                     for(let x = 0; x < 7; x++){
@@ -306,7 +306,7 @@ module.exports = {
                         let weekDay = moment(u.createdAt).format('dddd');
                         new_users[weekDay]++;
                     }
-        
+
                     let data = {
                         posts,
                         events,
@@ -457,8 +457,8 @@ module.exports = {
                     }
                     console.log(hash);
 
-                    // let link = "https://api.erinvale.co.za/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
-                    let link = "http://localhost:1337/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
+                    // let link = "http://localhost:1337/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
+                    let link = "https://erinvale.emergenow.co.za/v1/users/reset_password?token=" + hash + "&email=" + _user.email;
                     // console.log( qs.escape(link));
 
                     let _options = {
@@ -591,7 +591,7 @@ function welcomeUser(user, password) {
         console.log("User account created, sending email");
         let to = user.email;
         let user_type = processAccountType(user);
-        
+
         let subject = "Welcome to Erinvale - " + user_type + " Members";
         let _options = {
             name: user.first_name,
@@ -612,7 +612,7 @@ function welcomeUser(user, password) {
 function processAccountType(user) {
   if(user.permissions === "admin") {
     return "Admin";
-  } else {      
+  } else {
     if(user.user_group_hoa) {
       return "HOA";
     }

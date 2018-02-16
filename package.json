@@ -38,6 +38,7 @@
     "sails-mongo": "^0.12.2",
     "sha1": "^1.1.1",
     "shortid": "^2.2.8",
+    "skipper-better-s3": "^2.2.1",
     "striptags": "^3.1.0",
     "swig-email-templates": "^5.0.1"
   },

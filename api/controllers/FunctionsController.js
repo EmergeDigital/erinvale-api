@@ -124,6 +124,57 @@ module.exports = {
     let urls = { images, videos, docs };
     console.log(urls);
     response.status(200).json(urls);
-},
+  },
+
+	uploadFile: (request, response) => {
+		// console.log(request.file);
+    let options = {
+      adapter: require('skipper-better-s3'),
+			key: s3.key,
+			secret: s3.secret,
+			bucket: s3.bucket,
+			s3config: {
+			   signature_version: 's3v4'
+			},
+			onProgress: progress => console.log('Upload progress:', progress)
+		};
+
+		request.file('file').upload(options, (err, uploadedFiles) => {
+		  // ... Continue as usual
+			if (err) {
+		    return response.serverError(err);
+		  }
+			let url = processUrl(uploadedFiles[0].extra.Location);
+			response.statusCode = 200;
+		  return response.json(url);
+		})
+  },
+
+	deleteFile: (request, response) => {
+		// console.log(request.file);
+    let options =
+      {
+        key: s3.key,
+        secret: s3.secret,
+        bucket: s3.bucket,
+      }
+      // This will give you an adapter instance configured with the
+      // credentials and bucket defined above
+      , adapter = require('skipper-better-s3')(options)
+
+      //EG : https://s3.eu-west-3.amazonaws.com/erinvale-fr/sp.png
+      let full_url = request.query.url;
+      let url = full_url.replace('https://s3.eu-west-3.amazonaws.com/'+ s3.bucket + '/', '');
+      //SHOULD BE: sp.png
+
+      adapter.rm(url, (err, res) => {
+        if(err) {
+          response.status(400).json(err);
+        } else {
+          response.status(200).json("completed");
+        }
+        // res is whatever S3 SDK returns (honestly no idea what's inside, have a look)
+      })
+	},
 };
 
