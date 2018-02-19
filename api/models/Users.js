@@ -42,6 +42,10 @@ module.exports = {
       required: true,
       unique: true
     },
+    password: {
+      type: "string",
+      required: true,
+    },
     contact_number: {
       type: "string"
     },
