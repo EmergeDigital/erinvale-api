@@ -127,7 +127,6 @@ module.exports = {
   },
 
 	uploadFile: (request, response) => {
-		// console.log(request.file);
     let options = {
       adapter: require('skipper-better-s3'),
 			key: s3.key,
@@ -144,37 +143,41 @@ module.exports = {
 			if (err) {
 		    return response.serverError(err);
 		  }
-			let url = processUrl(uploadedFiles[0].extra.Location);
-			response.statusCode = 200;
-		  return response.json(url);
+			let url = uploadedFiles[0].extra.Location;
+		  return response.status(200).json(url);
 		})
   },
 
 	deleteFile: (request, response) => {
 		// console.log(request.file);
-    let options =
-      {
-        key: s3.key,
-        secret: s3.secret,
-        bucket: s3.bucket,
-      }
-      // This will give you an adapter instance configured with the
-      // credentials and bucket defined above
-      , adapter = require('skipper-better-s3')(options)
-
-      //EG : https://s3.eu-west-3.amazonaws.com/erinvale-fr/sp.png
-      let full_url = request.query.url;
-      let url = full_url.replace('https://s3.eu-west-3.amazonaws.com/'+ s3.bucket + '/', '');
-      //SHOULD BE: sp.png
-
-      adapter.rm(url, (err, res) => {
-        if(err) {
-          response.status(400).json(err);
-        } else {
-          response.status(200).json("completed");
+    if(request.body.download.url) {
+      let options =
+        {
+          key: s3.key,
+          secret: s3.secret,
+          bucket: s3.bucket,
         }
-        // res is whatever S3 SDK returns (honestly no idea what's inside, have a look)
+        // This will give you an adapter instance configured with the
+        // credentials and bucket defined above
+        , adapter = require('skipper-better-s3')(options)
+
+        //EG : https://s3.eu-west-3.amazonaws.com/erinvale-fr/sp.png
+        const url = request.body.download.url;
+        let _url = url.replace('https://erinvale-fr.s3.eu-west-3.amazonaws.com/', '');
+        //SHOULD BE: sp.png
+
+        adapter.rm(_url, (err, res) => {
+          if(err) {
+            response.status(400).json(err);
+          } else {
+            response.status(200).json("completed");
+          }
+          // res is whatever S3 SDK returns (honestly no idea what's inside, have a look)
       })
+
+    } else {
+      response.status(400).json("please define a file url");
+    }
 	},
 };
 

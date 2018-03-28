@@ -65,9 +65,19 @@ module.exports.routes = {
   'get /v1/events/get_all' : 'EventsController.getEvents',
   'post /v1/events/attend' : 'EventsController.updateAttendance',
 
+  //DOWNLOADS
+  'post /v1/downloads/create' : 'DownloadsController.createDownload',
+  'get /v1/downloads/get' : 'DownloadsController.getDownload',
+  'post /v1/downloads/update' : 'DownloadsController.updateDownload',
+  'post /v1/downloads/delete' : 'DownloadsController.deleteDownload',
+  'get /v1/downloads/get_all' : 'DownloadsController.getDownloads',
+  'post /v1/downloads/count' : 'DownloadsController.updateDownloadCount',
+
   //FUNCTIONS
   'get /v1/functions/sign' : 'FunctionsController.sign',
-  'get /v1/functions/signAll' : 'FunctionsController.signAll'
+  'get /v1/functions/signAll' : 'FunctionsController.signAll',
+  'post /v1/functions/uploadFile' : 'FunctionsController.uploadFile',
+  'post /v1/functions/deleteFile' : 'FunctionsController.deleteFile'
 
   /***************************************************************************
   *                                                                          *

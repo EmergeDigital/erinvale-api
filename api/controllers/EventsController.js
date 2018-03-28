@@ -47,7 +47,7 @@ module.exports = {
         })
     },
 
-    
+
 	/**
      * Gets a single event
      * @param request
@@ -152,7 +152,7 @@ module.exports = {
     getEvents: (request, response) => {
         console.log("Received GET for ALL Events");
         console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
-        
+
         sails.models.events.find(request.query).then(events => {
             response.statusCode = 200;
             response.json(events);
@@ -185,34 +185,26 @@ module.exports = {
                 new_array.splice(index, 1); //Remove index
                 //update
                 event.attending = new_array;
-                return sails.models.events.update(original, event).then(result => {
-                    if(result.length > 0) {
-                        return response.status(200).json(result[0]);
-                    } else {
-                        return result.status(400).json("Unable to update");
-                    }
-                }).catch(ex => {
-                    console.log(ex);
-                    return response.status(400).json(ex);
-                })
+                return sails.models.events.update(original, event);
             } else if (index == -1 && attendance) { //If not found and adding attendance (true)
                 new_array.push(userid); //push userid to array
                 //update
                 event.attending = new_array;
-                return sails.models.events.update(original, event).then(result => {
-                    if(result.length > 0) {
-                        return response.status(200).json(result[0]);
-                    } else {
-                        return result.status(400).json("Unable to update");
-                    }
-                }).catch(ex => {
-                    console.log(ex);
-                    return response.status(400).json(ex);
-                });
+                return sails.models.events.update(original, event);
             } else {
-                response.status(200).json(event); //Return current event, it is correct as-is
+                return Promise.resolve([event]);
+                // response.status(200).json(event); //Return current event, it is correct as-is
             }
-        })
+        }).then(result => {
+            if(result.length > 0) {
+                response.status(200).json(result[0]);
+            } else {
+                result.status(400).json("Unable to update");
+            }
+        }).catch(ex => {
+            console.log(ex);
+            response.status(400).json(ex);
+        });
 
     },
 };
