@@ -46,7 +46,19 @@ module.exports = {
       type: "string",
       required: true,
     },
+    erf_number: {
+      type: "string"
+    },
+    member_number: {
+      type: "string"
+    },
     contact_number: {
+      type: "string"
+    },
+    contact_number_alt: {
+      type: "string"
+    },
+    birth_date: {
       type: "string"
     },
     addressL1: {
@@ -65,6 +77,24 @@ module.exports = {
       type: "string"
     },
     country: {
+      type: "string"
+    },
+    addressL1_alt: {
+      type: "string"
+    },
+    addressL2_alt: {
+      type: "string"
+    },
+    city_alt: {
+      type: "string"
+    },
+    province_alt: {
+      type: "string"
+    },
+    postal_code_alt: {
+      type: "string"
+    },
+    country_alt: {
       type: "string"
     },
     image_url: {
