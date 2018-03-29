@@ -77,7 +77,9 @@ module.exports.routes = {
   'get /v1/functions/sign' : 'FunctionsController.sign',
   'get /v1/functions/signAll' : 'FunctionsController.signAll',
   'post /v1/functions/uploadFile' : 'FunctionsController.uploadFile',
-  'post /v1/functions/deleteFile' : 'FunctionsController.deleteFile'
+  'post /v1/functions/deleteFile' : 'FunctionsController.deleteFile',
+  'post /v1/functions/contact' : 'FunctionsController.contact',
+  'post /v1/functions/register' : 'FunctionsController.register'
 
   /***************************************************************************
   *                                                                          *

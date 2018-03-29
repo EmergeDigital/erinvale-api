@@ -179,5 +179,73 @@ module.exports = {
       response.status(400).json("please define a file url");
     }
 	},
+
+  /**
+   * Sends out a contact request
+   * @param request
+   * @param response
+   */
+  contact: (request, response) => {
+      console.log("Received POST for CONTACT REQUEST");
+      console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
+
+
+      let contact = request.body;
+
+      let to = secrets.mailgun.support_address;
+
+      let subject = "Contact Request from " + contact.name + " - Erinvale Portal";
+      let _options = {
+          name: contact.name,
+          message: contact.message,
+          email: contact.email.toLowerCase().trim()
+      };
+
+      //SEND EMAIL BELOW WITH PASSWORD
+      emailService.renderEmailAsync("contactRequest.html", _options).then((html, text) => {
+        return emailService.createMail(html, text, to, subject)
+      }).then(() => {
+        response.status(200).json("Sent");
+        console.log("Done with this contact request (" + contact.email + ")");
+      }).catch(ex => {
+        response.status(400).json(ex);
+      })
+  },
+
+  /**
+   * Sends out a registration request
+   * @param request
+   * @param response
+   */
+  register: (request, response) => {
+      console.log("Received POST for REGISTER REQUEST");
+      console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
+
+
+      let contact = request.body;
+
+      let to = secrets.mailgun.support_address;
+
+      let subject = "Registration Request from " + contact.name + " - Erinvale Portal";
+      let _options = {
+          name: contact.name,
+          email: contact.email.toLowerCase().trim(),
+          user_type: contact.user_group === "Both" ? "Resident & Golf Member" : contact.user_group,
+          erf: contact.erf ? contact.erf : "N/A",
+          mn: contact.mn ? contact.mn : "N/A",
+          address: contact.address ? contact.address : "None Provided",
+      };
+
+      //SEND EMAIL BELOW WITH PASSWORD
+      emailService.renderEmailAsync("registerRequest.html", _options).then((html, text) => {
+        return emailService.createMail(html, text, to, subject)
+      }).then(() => {
+        response.status(200).json("Sent");
+        console.log("Done with this contact request (" + contact.email + ")");
+      }).catch(ex => {
+        response.status(400).json(ex);
+      })
+  },
+
 };
 

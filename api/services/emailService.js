@@ -74,7 +74,7 @@ function sendMail (mailOptions) {
       // let flag = false;
       let flags = [];
       for(let email of emails) {
-        let flag = validateEmail(email);
+        let flag = email === secrets.mailgun.support_address ? true : validateEmail(email);
         flags.push(flag);
       }
       if(!flags.includes(false)){

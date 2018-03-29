@@ -29,6 +29,7 @@ module.exports = {
 
         let user = request.body;
         user.id = shortid.generate();
+        user.email = user.email.toLowerCase().trim();
 
         sails.models.users.create(user).then(success => {
             console.log("Logging success: ", success);
@@ -347,7 +348,7 @@ module.exports = {
         };
 
         let _user = {
-            email: request.body.user.email
+            email: request.body.user.email.toLowerCase().trim()
         };
 
         if (emailService.validateEmail(user.email)) {
@@ -446,7 +447,7 @@ module.exports = {
         console.log("Received GET for RESET PASSWORD LINK");
         console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
         // let users = get();
-        let _user = {email: request.query.email};
+        let _user = {email: request.query.email.toLowerCase().trim()};
 
         sails.models.users.findOne(_user).then(user => {
             if (!!user) {

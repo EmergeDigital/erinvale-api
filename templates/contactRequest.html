@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+	{% block head %}
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	{% endblock %}
+</head>
+<body class="main-body">
+	<div class="main-block-new material-card">
+
+		<img src="https://s3.eu-west-3.amazonaws.com/erinvale-fr/admin.jpg" style="height: auto; width: 100%">
+		<!-- <img src="https://pear-scanplan.imgix.net/a4f1fd8a-1d46-413a-873f-dacff8c36733.jpg" style="height: auto; width: 100%"> -->
+		<div class="text-center default-main-body">
+				<div class="scanplan-icon text-center ">
+					<!-- <img src="https://pear-scanplan.imgix.net/831e9f12-5286-4d4a-b3b3-5e567b828492.jpg" style="height: auto; width: 220px;" /> -->
+					<img src="https://s3.eu-west-3.amazonaws.com/erinvale-fr/logo.png" title="Erinvale Logo" alt="Erinvale Logo" style="height: auto; width: 220px;" />
+				</div>
+				<h1>Hi,</h1>
+				<hr />
+				<p>
+					You have received a new contact request from portal.erinvale.com.<br><br>Please see their message below.
+				</p><hr />
+				<h4>
+					{{message}}
+				</h4><br>
+				<p>Additional Details</p>
+				<div class="password-block">
+					<p>Name:</p>
+					<h4><b>{{name}}</b></h4><br>
+					<p>Email Address:</p>
+					<h4><b><a href="mailto:{{email}}" style="text-decoration:none;color:#000001;">{{email}}</a></b></h4><br>
+				</div>
+				<div class="cascading-buttons" style="padding-top: 30px; padding-bottom: 40px;">
+					<a href="https://erinvale-portal.firebaseapp.com"><button class="default-accept-btn">Dashboard</button></a>
+				</div>
+			</div>
+
+		<div class="blue-footer">
+			You have received this email because you are a registered admin at Erinvale.
+			If you believe you received this in error or if you have queries then please contact us at
+			<a href="mailto:support@erinvale.com" style="color: #ffffff !important;">support@erinvale.com</a>
+		</div>
+	</div>
+</body>
+
+</html>
