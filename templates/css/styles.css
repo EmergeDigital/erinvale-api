@@ -178,7 +178,7 @@ p {
 .default-accept-btn{
     padding:0px;
     color: white;
-    font-size: 20px;  
+    font-size: 20px;
 	margin-top: 7px;
 	margin-bottom: 7px;
 	display: inline-block;
@@ -242,7 +242,7 @@ p {
   padding-right: 10px;
 }
 
-.password-block {    
+.password-block {
   min-height: 20px;
   padding: 25px;
   margin-bottom: 20px;
