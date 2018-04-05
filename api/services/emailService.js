@@ -74,9 +74,11 @@ function sendMail (mailOptions) {
       // let flag = false;
       let flags = [];
       for(let email of emails) {
-        let flag = email === secrets.mailgun.support_address ? true : validateEmail(email);
+        const support_emails = [secrets.mailgun.support_address, secrets.mailgun.support_address_hoa, secrets.mailgun.support_address_golf];
+        let flag = support_emails.includes(email) ? true : validateEmail(email);
         flags.push(flag);
       }
+
       if(!flags.includes(false)){
           var data = {
             from: mailOptions.from,

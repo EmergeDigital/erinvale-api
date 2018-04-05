@@ -192,7 +192,7 @@ module.exports = {
 
       let contact = request.body;
 
-      let to = secrets.mailgun.support_address;
+      let to = getAddresses(contact.user_group);
 
       let subject = "Contact Request from " + contact.name + " - Erinvale Portal";
       let _options = {
@@ -224,7 +224,7 @@ module.exports = {
 
       let contact = request.body;
 
-      let to = secrets.mailgun.support_address;
+      let to = getAddresses(contact.user_group);
 
       let subject = "Registration Request from " + contact.name + " - Erinvale Portal";
       let _options = {
@@ -248,4 +248,24 @@ module.exports = {
   },
 
 };
+
+function getAddresses(user_group) {
+  switch (user_group) {
+    case 'Resident':
+      return secrets.mailgun.support_address + ', ' + secrets.mailgun.support_address_hoa;
+      break;
+
+    case 'Golf Member':
+      return secrets.mailgun.support_address_golf;
+      break;
+
+    case 'Both':
+      return secrets.mailgun.support_address + ', ' + secrets.mailgun.support_address_hoa + ', ' + secrets.mailgun.support_address_golf;
+      break;
+
+    default:
+      return secrets.mailgun.support_address;
+      break;
+  }
+}
 
