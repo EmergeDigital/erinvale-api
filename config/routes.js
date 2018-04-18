@@ -48,6 +48,7 @@ module.exports.routes = {
   'get /v1/users/reset_password_link' : 'UsersController.resetPasswordLink',
   'get /v1/users/reset_password' : 'UsersController.resetPassword',
   'get /v1/users/dashboard' : 'UsersController.getDashboardContent',
+  'post /v1/users/import' : 'UsersController.import',
 
   //POSTS
   'post /v1/posts/create' : 'PostsController.createPost',

@@ -10,6 +10,7 @@ let bcrypt = require('bcrypt');
 let shortid = require('shortid');
 let moment = require('moment');
 let generator = require('generate-password');
+var RateLimiter = require('limiter').RateLimiter;
 let qs = require('querystring');
 let _ = require('lodash');
 const special_users = [
@@ -57,6 +58,7 @@ module.exports = {
 
         // Step 1:  Get the user with matching email address,
         //          check if password matches with bcrypt
+
         checkLogin(request.query.email, request.query.password, response).then(user => {
             if (!!user) {
                 response.status(200).json(user);
@@ -532,6 +534,76 @@ module.exports = {
         });
     },
 
+    import: (request, response) => {
+        console.log("Received POST for IMPORT MULTIPLE USERS");
+        // console.log("PROTOCOL: " + request.protocol + '://' + request.get('host') + request.originalUrl + "\n");
+
+
+        // CHECK PERMISSIONS FOR ADMIN (get shortid from request headers)
+
+
+        let users = request.body.users;
+        var limiter = new RateLimiter(10, 2500);
+        let successCount = 0;
+        let totalUsers = users.length;
+        console.log(totalUsers);
+        for (let user of users) {
+            user.shortid = shortid.generate();
+            if(!user.email){
+                console.log("no email", user);
+                userComplete();
+            } else {
+                user.email = user.email.toLowerCase().replace(/\s/g, '');
+
+                limiter.removeTokens(1, () => {
+                    // /console.log(user.first_name + ' ' + user.last_name + ' ' + user.email);
+                    // userComplete();
+                    sails.models.users.findOne({email: user.email}).then(result => {
+                        if (!!result) {
+                            console.log("Account found, adding permissions");
+                            console.log(user.first_name + ' ' + user.last_name + ' ' + user.email);
+                            sails.models.users.update({email: user.email}, user).then(_user => {
+                              // userComplete();
+                            });
+                        } else {
+                            console.log("No results found. Creating account");
+                            user.password = user.last_name + '1ev';
+                            user.id = shortid.generate();
+                            console.log(user.first_name + ' ' + user.last_name + ' ' + user.email + ' ' + user.password + ' ' + user.id);
+
+                            sails.models.users.create(user).then(success => {
+                                console.log("Logging success: ", success);
+                                welcomeUser(success, user.password);
+                                // userComplete();
+                            }).catch(ex => {
+                                console.log("create user: error: ", ex);
+                                // response.status(400).json(find_error(ex));
+                            })
+
+                        }
+                        userComplete();
+                    }).catch(ex => {
+                        userComplete();
+                        // response.statusCode = 400;
+                        // response.status = 400;
+                        console.log(ex);
+                        // response.json(ex);
+                    })
+                    // vendorComplete();
+                });
+            }
+        }
+
+        function userComplete() {
+            successCount++;
+            // console.log(successCount + ' / ' + totalVendors);
+            if(successCount >= totalUsers) {
+                console.log("Logging completion");
+                response.status(200).json("Processed");
+            }
+        }
+    },
+
 };
 
 function find_error(ex) {
@@ -628,7 +700,7 @@ function processUserGroup(user) {
     } else {
         if(user.user_group_hoa) {
           if (user.user_group_golf) {
-            params.user_group_golf = true;
+            return params;
           }
           params.user_group_hoa = true;
         } else if (user.user_group_golf) {
